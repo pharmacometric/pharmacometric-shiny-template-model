@@ -1,2 +1,1 @@
-# pharmacometric-shiny-template-model
-Standard PMx template for model evaluations
+# Standard PMx template for model evaluations
