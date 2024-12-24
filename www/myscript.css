@@ -1,0 +1,154 @@
+#chat-container .chat-list-body{
+  height: 100%!important;
+}
+#tracksimulations, #reportgraphstatus, #reportgraphstatus2{
+  color: red!important;
+}
+#summaryrestbl table{
+  width:100%!important;
+}
+
+.chat-list-body .selectize-input {
+    min-height: 20px!important;
+}
+
+#summaryexptbl table{
+  width: 100%!important;
+}
+
+#summaryexptbl table tr>td{
+  font-weight: bold;
+}
+#summaryexptbl table th {
+    background-color: gray;
+    color: white;
+}
+
+
+#varnamesholder{
+  font-family: courier;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: blue;
+}
+.hider{
+  display: none;
+}
+
+#chat-container {
+  z-index: 101;
+}
+
+#checkGroupradio1 .shiny-options-group .radio{
+  display: inline-block;
+  padding-right: 20px;
+}
+
+code {
+    display: block;
+    white-space: pre-wrap;
+    font-family: courier;
+    padding: 10px;
+    background-color: #333;
+    color: wheat;
+}
+#graphtype2-label,#graphcolnum-label {
+  color: blue;
+}
+
+.xpadding-15{
+  padding: unset!important;
+}
+
+#demdescrtbl table{
+  width:100%!important;
+}
+.downloadbtns {
+  background-color: lightblue; border-width: 0;
+}
+
+.downloadbtns2 {
+  background-color: lightgoldenrodyellow; border-width: 0;
+}
+
+
+#demdescrtbl table {
+	display: table;
+  border-spacing: 2px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+#demdescrtbl th,
+#demdescrtbl caption {
+  text-align: start;
+}
+
+#demdescrtbl caption {
+  margin-block: 0.75rem;
+}
+
+#demdescrtbl thead th:not(:first-child),
+#demdescrtbl td {
+  text-align: end;
+}
+
+thead {
+  border-block-end: 2px solid;
+  background: whitesmoke;
+}
+
+tfoot {
+  border-block: 2px solid;
+  background: whitesmoke;
+}
+
+th,
+td {
+  border: 1px solid lightgrey;
+  padding: 0.25rem 0.75rem;
+  vertical-align: baseline;
+}
+
+th:first-child {
+  position: sticky;
+  inset-inline-start: 0;
+  border-inline-end: none;
+}
+
+tbody th {
+  background: white;
+}
+
+#demdescrtblthead th,
+#demdescrtbltfoot th {
+  background: whitesmoke;
+}
+
+#demdescrtbl thead th {
+  vertical-align: bottom;
+}
+
+#demdescrtbl td:first-of-type,
+#demdescrtbl :where(thead, tfoot) th:nth-child(2) {
+  border-inline-start: none;
+}
+
+th:first-of-type {
+  width: 10rem;
+}
+
+th:first-child::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  width: 1px;
+  height: 100%;
+  background: white;
+}
+
+
+#subj1summary table{
+  width: 100%;
+}
