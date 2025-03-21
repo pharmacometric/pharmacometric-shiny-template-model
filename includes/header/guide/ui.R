@@ -10,7 +10,7 @@
 #############################################################################
 
 body.top.guide = card.pro(
-  title = "Model App Guide", width = 12,
+  title = "Model Evaluation App Guide", width = 12,
   header.bg = "darken",
   removebtn = FALSE,
   colorbtn = FALSE,
