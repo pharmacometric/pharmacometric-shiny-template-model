@@ -52,7 +52,7 @@ output$modeltabsrun <- renderUI({
     listfile <- file.path(folderpath, gsub("\\.(mod|ctl)$", ".lst", sw$value))
     set.vals.proc(sw$key, nmfile,listfile)
     if (file.exists(listfile)) {
-      readlst <- readLines(listfile) #parse lst files
+      readlst <- parse_nm_lst(listfile) #parse lst files
       set.est.ofv(sw$key, sw$value, nmfile, readlst)
       ofv <- readlst$SUMMARY["OFV"]
       inputdata <- readlst$INPUT
