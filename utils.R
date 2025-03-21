@@ -723,69 +723,135 @@ createPcVPCPlots <- function(
     )
   )
 }
-parse_nonmem_output <- function(file_path) {
-  # Read the entire file
-  lines <- readLines(file_path)
-  # Initialize a list to store sections
-  sections <- list()
-  # Define section markers
-  section_markers <- c("THETA", "OMEGA", "SIGMA", "ESTIMATIONS", "REPORT", "OUTPUT")
-  # Initialize current section
-  current_section <- NULL
-  # Initialize variables for OBJV, input data file, and output files
-  objective_function_value <- NULL
-  input_data_file <- NULL
+parse_nm_lst <- function(filepath) {
+  # Read the lines safely
+  lines <- tryCatch(readLines(filepath, warn = FALSE),
+                    error = function(e) character(0))
+  # Initialize results
+  minimization_success <- FALSE
+  nsig <- NA_real_
+  covariances <- NA_real_
+  zerogradient <- FALSE
+  descr <- meth <- "N/A"
+  dnum <- runtime <- objective_function_value <- NA_real_
+  etashrinksd <- etashrinkvr <- numeric(0)
+  input_file <- "N/A"
   output_files <- NULL
-  # Loop through each line in the file
-  for (i in seq_along(lines)) {
-    line <- lines[i]
-    # Check if line starts a new section
-    found_section <- sapply(section_markers, function(marker) grepl(marker, line, ignore.case = TRUE))
-    if (any(found_section)) {
-      # If we are currently in a section, save it to the list
-      if (!is.null(current_section)) {
-        sections[[current_section]] <- current_content
-      }
-      # Update current section
-      current_section <- section_markers[which(found_section)][1]
-      current_content <- c() # Reset current content
+  if (length(lines) > 0) {
+    # Check for minimization success
+    minimization_success <- any(grepl("0MINIMIZATION SUCCESSFUL", lines, fixed = TRUE))
+    # Check for covariance success
+    cov_st <- sub("0COVARIANCE STEP OMITTED: *([[:alpha:]]{1,}) *","\\1",grep("0COVARIANCE",lines, value = TRUE))
+    if(length(cov_st)) covariances <- ifelse(cov_st=="NO", TRUE, FALSE)
+    # Match line containing NSIG info
+    sig_digits_line <- grep("NO\\. OF SIG\\. DIGITS IN FINAL EST", lines, value = TRUE)
+    if (length(sig_digits_line) > 0) {
+      # Extract the first number from the line
+      nsig_match <- regmatches(sig_digits_line, regexpr("[0-9]+\\.?[0-9]*", sig_digits_line))
+      nsig <- as.numeric(nsig_match)
     }
-    # Add line to the current section content if one is opened
-    if (!is.null(current_section)) {
-      current_content <- c(current_content, line)
+    # Match $EST or $ESTIMATION line
+    est_line <- grep("^\\s*\\$(EST|ESTIMATION)\\b", lines, value = TRUE)
+    if (length(est_line) > 0) {
+      method_match <- regmatches(est_line, regexpr("METHOD=\\S+", est_line))
+      if (length(method_match) > 0) {
+        meth <- sub("METHOD=", "", method_match[1])
+      }
     }
     # Extract OBJV if present
-    if (grepl("OBJV", line, ignore.case = TRUE)) {
-      objective_function_value <- gsub("[^0-9.-]", "", line) # Remove all non-numeric characters
-    }
-    # Extract input data file
-    if (grepl("^\\$DATA", line, ignore.case = TRUE)) {
-      # Extract the first filename on that line, or the next line
-      files <- unlist(strsplit(line, "\\s+"))
-      input_data_file <- files[2] # First filename after $DATA
-      if (is.null(input_data_file) && (i < length(lines))) {
-        input_data_file <- gsub("\\s+", "", lines[i + 1]) # Next line if current is empty
+    objv_line <- grep("OBJV", lines, value = TRUE)
+    if (length(objv_line) > 0) {
+      ofv_match <- regmatches(objv_line, regexpr("-?\\d+\\.?\\d*", objv_line))
+      if (length(ofv_match) > 0) {
+        objective_function_value <- as.numeric(ofv_match)
       }
     }
-    # Extract output files
-    if (grepl("FILE=", line, ignore.case = TRUE)) {
-      output_file <- sub(".*FILE=\\s*(.*)", "\\1", line)
-      output_files <- c(output_files, output_file)
+    # Extract input data file
+    data_line <- grep("^\\s*\\$DATA\\b", lines, value = TRUE)
+    if (length(data_line) > 0) {
+      # Remove $DATA and trim, then take first word (assumed to be the filename)
+      content <- trimws(sub("^\\s*\\$DATA\\s+", "", data_line[1]))
+      if (nchar(content) > 0) {
+        input_file <- strsplit(content, "\\s+")[[1]][1]
+      }
+    }
+    #output
+    file_matches <- unlist(regmatches(lines, gregexpr("FILE=\\S+", lines)))
+    if (length(file_matches) > 0) {
+      output_files <- sub("FILE=", "", file_matches)
+    }
+    # DNUM + RUNTIME
+    elapsed_index <- grep("Elapsed finaloutput time in seconds", lines)
+    if (length(elapsed_index) > 0) {
+      # RUNTIME
+      elapsed_line <- lines[elapsed_index[1]]
+      runtime_match <- regmatches(elapsed_line, regexpr("[0-9]+\\.?[0-9]*", elapsed_line))
+      if (length(runtime_match) > 0) {
+        runtime <- as.numeric(runtime_match)
+      }
+      # DNUM (ratio of last to first number from line above)
+      for (i in seq(elapsed_index[1] - 1, 1)) {
+        number_matches <- gregexpr("-?\\d+\\.?\\d*[Ee]?[-+]?\\d*", lines[i])
+        numbers_found <- regmatches(lines[i], number_matches)[[1]]
+        if (length(numbers_found) > 1) {
+          numeric_vals <- as.numeric(numbers_found)
+          if (!is.na(numeric_vals[1]) && numeric_vals[1] != 0) {
+            dnum <- round(numeric_vals[length(numeric_vals)] / numeric_vals[1],1)
+          } else {
+            dnum <- NA_real_
+          }
+          break
+        }
+      }
+    }
+    # Check gradient lines
+    gradient_lines <- grep("GRADIENT: ", lines, value = TRUE)
+    if (length(gradient_lines) > 0) {
+      all_numbers <- unlist(regmatches(gradient_lines, gregexpr("-?\\d+\\.?\\d*[Ee]?[-+]?\\d*", gradient_lines)))
+      all_values <- as.numeric(all_numbers)
+      if (any(all_values == 0)) {
+        zerogradient <- TRUE
+      }
+    }
+    # ETASHRINKSD
+    shrinksd_line <- grep("ETASHRINKSD\\(\\%\\) ", lines, value = TRUE)
+    if (length(shrinksd_line) > 0) {
+      etashrinksd <- as.numeric(unlist(regmatches(shrinksd_line, gregexpr("-?\\d+\\.?\\d*", shrinksd_line))))
+    }
+    # ETASHRINKVR
+    shrinkvr_line <- grep("ETASHRINKVR\\(\\%\\) ", lines, value = TRUE)
+    if (length(shrinkvr_line) > 0) {
+      etashrinkvr <- as.numeric(unlist(regmatches(shrinkvr_line, gregexpr("-?\\d+\\.?\\d*", shrinkvr_line))))
+    }
+    # Match $PROBLEM line
+    problem_line <- grep("^\\s*\\$PROBLEM", lines, value = TRUE)
+    if (length(problem_line) > 0) {
+      # Remove the $PROBLEM part and trim the rest
+      descr_raw <- sub("^\\s*\\$PROBLEM", "", problem_line[1])
+      descr <- trimws(descr_raw)
+      if (descr == "") {
+        descr <- "N/A"
+      }
     }
   }
-  # Save the last section content
-  if (!is.null(current_section)) {
-    sections[[current_section]] <- current_content
-  }
-  # Compile results
-  results <- list(
-    sections = sections,
-    objective_function_value = objective_function_value,
-    input_data_file = input_data_file,
-    output_files = output_files
-  )
-  return(results)
+  # Return the result list
+  return(list(
+    MIN = minimization_success,
+    NSIG = nsig,
+    COV = covariances,
+    OFV = objective_function_value,
+    INPUT = input_file,
+    OUTPUT = output_files,
+    ZEROGRADIENT = zerogradient,
+    DESCR = descr,
+    METH = meth,
+    CONDNUM = dnum,
+    RUNTIME = runtime,
+    ETASHRINKSD = etashrinksd,
+    ETASHRINKVR = etashrinkvr
+  ))
 }
+
 covariates_titles <- c(
   AGE = "Age (years)",
   WT = "Weight (kg)",
