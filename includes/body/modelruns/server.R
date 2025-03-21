@@ -17,9 +17,9 @@ set.vals.proc <- function(key, nmfile,lstf) {
   modelnum.proc(number(1))
 }
 set.est.ofv <- function(key, value, nmfile, readlst) {
-  modelnum.est.[[key]] <<- list(readlst$TAB, value)
-  modelnum.ofv.[[key]] <<- readlst$SUMMARY["OFV"]
-  modelnum.tabs.[[nmfile]] <<- readlst$TABLEOUTPUT
+  modelnum.est.[[key]] <<- list(data.frame(), value) #list(readlst$TAB, value)
+  modelnum.ofv.[[key]] <<- readlst$OFV
+  modelnum.tabs.[[nmfile]] <<- readlst$OUTPUT
   modelnum.est(number(1))
   modelnum.ofv(number(1))
 }
@@ -54,15 +54,15 @@ output$modeltabsrun <- renderUI({
     if (file.exists(listfile)) {
       readlst <- parse_nm_lst(listfile) #parse lst files
       set.est.ofv(sw$key, sw$value, nmfile, readlst)
-      ofv <- readlst$SUMMARY["OFV"]
+      ofv <- readlst$OFV
       inputdata <- readlst$INPUT
-      nmethod <- getNMmethod(readlst$CODE)
+      nmethod <- getNMmethod(readlst$METH)
       lstcheck <- ticksuccess
-      descr <- readlst$SUMMARY["PROBLEM"]
-      nsig <- readlst$SUMMARY["NSIG"]
-      if (as.boolean(readlst$SUMMARY["CovarianceStep"])) covariance <- ticksuccess
-      if (readlst$SUMMARY["Success"] == "MINIMIZATION SUCCESSFUL") minimize <- ticksuccess
-      if (as.boolean(readlst$SUMMARY["zerogradient"])) gradient <- ticksuccess
+      descr <- readlst$DESCR
+      nsig <- readlst$NSIG
+      if (readlst$COV) covariance <- ticksuccess
+      if (readlst$MIN == TRUE) minimize <- ticksuccess
+      if (!readlst$ZEROGRADIENT) gradient <- ticksuccess
     }
     contenwrap <- paste0(
       contenwrap,
