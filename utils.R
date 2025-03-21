@@ -159,7 +159,21 @@ hash_string_to_numbers <- function(input_string) {
   clean_string <- gsub("\\\\|/", "", input_string)
   custom_hash(clean_string)
 }
-getNMmethod <- function(vector_items) {
+getNMmethod <- function(res) {
+  switch(res,
+    "1" = "FOCE",
+    "2" = "FOCEI",
+    "3" = "IPOPT",
+    "4" = "LAP",
+    "5" = "SAEM",
+    "6" = "Two-Stage",
+    "7" = "BAYESIAN",
+    res
+  )
+}
+
+
+getNMmethodFull <- function(vector_items) {
   # Use grep to find indices of items that start with $EST or $ESTIMATION
   matched_indices <- grep("^\\$EST(IMATION)?", vector_items)
   # Extract the METHOD values from the matched items
@@ -172,19 +186,20 @@ getNMmethod <- function(vector_items) {
       res <- regmatches(x, match)[[1]][2] # Extract the value capturing group
     }
     switch(res,
-      "1" = "FOCE",
-      "2" = "FOCEI",
-      "3" = "IPOPT",
-      "4" = "LAP",
-      "5" = "SAEM",
-      "6" = "Two-Stage",
-      "7" = "BAYESIAN",
-      res
+           "1" = "FOCE",
+           "2" = "FOCEI",
+           "3" = "IPOPT",
+           "4" = "LAP",
+           "5" = "SAEM",
+           "6" = "Two-Stage",
+           "7" = "BAYESIAN",
+           res
     )
   })
   # Print the extracted METHOD values
   return(paste(method_values, collapse = ", "))
 }
+
 shwhdbtn <- function(id = "dirfiletype1afiles") {
   tags$div(tags$button("Show:hide files", class = "btn btn-default mb-2", onclick = paste0("document.querySelector('#", id, "').classList.toggle('hidethis')")))
 }
