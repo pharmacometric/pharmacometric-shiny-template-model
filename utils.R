@@ -813,15 +813,22 @@ parse_nm_lst <- function(filepath) {
         zerogradient <- TRUE
       }
     }
-    # ETASHRINKSD
-    shrinksd_line <- grep("ETASHRINKSD\\(\\%\\) ", lines, value = TRUE)
+    # ETASHRINKSD (support scientific notation)
+    shrinksd_line <- grep("ETASHRINKSD\\(\\%\\)", lines, value = TRUE)
     if (length(shrinksd_line) > 0) {
-      etashrinksd <- as.numeric(unlist(regmatches(shrinksd_line, gregexpr("-?\\d+\\.?\\d*", shrinksd_line))))
+      etashrinksd <- as.numeric(unlist(regmatches(
+        shrinksd_line,
+        gregexpr("-?\\d+\\.?\\d*(?:[Ee][+-]?\\d+)?", shrinksd_line)
+      )))
     }
-    # ETASHRINKVR
-    shrinkvr_line <- grep("ETASHRINKVR\\(\\%\\) ", lines, value = TRUE)
+
+    # ETASHRINKVR (support scientific notation)
+    shrinkvr_line <- grep("ETASHRINKVR\\(\\%\\)", lines, value = TRUE)
     if (length(shrinkvr_line) > 0) {
-      etashrinkvr <- as.numeric(unlist(regmatches(shrinkvr_line, gregexpr("-?\\d+\\.?\\d*", shrinkvr_line))))
+      etashrinkvr <- as.numeric(unlist(regmatches(
+        shrinkvr_line,
+        gregexpr("-?\\d+\\.?\\d*(?:[Ee][+-]?\\d+)?", shrinkvr_line)
+      )))
     }
     # Match $PROBLEM line
     problem_line <- grep("^\\s*\\$PROBLEM", lines, value = TRUE)
