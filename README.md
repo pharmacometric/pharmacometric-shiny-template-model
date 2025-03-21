@@ -11,6 +11,11 @@ Standardizing scripts for creating pharmacometric model evaluation outputs, such
 
 The current shiny template for models, plays a vital role in this standardization effort by automating the generation of R code for all scripts used in creating plots and tables. This automation not only streamlines the workflow but also minimizes the risk of errors, allowing researchers to focus on the scientific interpretation of their results rather than the intricacies of coding. By adopting such standardized tools, the pharmacometric community can enhance the quality and reliability of model evaluations.
 
+### Current limitation
+
+This dashboard works only with NONMEM based models.
+
+Should we create functionality for ADAPT 5 (or other software) models. We need enough interests to do it. Let us know here : 
 
 ### Usage 
 ```r
