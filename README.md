@@ -1,15 +1,13 @@
 # Standardized Pharmacometric Dashboard for Model Evaluations [Shiny]
 
-### Started, but ongoing...
 
-<img src="www/preview3.png">
+<img src="www/preview00.png">
 
 
 __Sample version 1 deployed template__: https://pharmacometric.shinyapps.io/
 
-Standardizing scripts for creating pharmacometric model evaluation outputs, such as summary tables and visual predictive check plots, is crucial for ensuring consistency, reproducibility, and clarity in data presentation. Standardized scripts facilitate collaboration among researchers by providing a common framework that reduces variability in analysis and interpretation. 
-
-The current shiny template for models, plays a vital role in this standardization effort by automating the generation of R code for all scripts used in creating plots and tables. This automation not only streamlines the workflow but also minimizes the risk of errors, allowing researchers to focus on the scientific interpretation of their results rather than the intricacies of coding. By adopting such standardized tools, the pharmacometric community can enhance the quality and reliability of model evaluations.
+Standardizing and automatically generating R scripts for creating model evaluation outputs, such as goodness of fit plots and visual predictive check plots, is crucial for ensuring consistency, reproducibility, and clarity in data presentation. Standardized scripts facilitate collaboration among researchers by providing a common framework that reduces variability in analysis and interpretation. 
+The current shiny template for models, plays a vital role in this standardization effort by automating the generation of R code for all scripts used in creating plots and tables. This automation not only streamlines the workflow but also minimizes the risk of errors, allowing researchers to focus on the scientific interpretation of their results rather than the intricacies of coding. 
 
 ### Current limitation
 
@@ -64,10 +62,10 @@ GGally, version 2.2.1
 
 ### !IMPORTANT
 
-For model runs, the below code is being run in terminal. You can modify it in "includes/body/gofplot/server.R" with your preferred format for your PsN or NONMEM installation.
+For model runs, the below code is being run in terminal. You can modify it in "includes/body/gofplot/server.R" line 182 with your preferred format for your PsN or NONMEM installation.
 
 ```
-psn73 execute FILENAME.mod
+psn74 execute FILENAME.mod
 
 ```
 
