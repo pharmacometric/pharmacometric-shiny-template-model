@@ -10,6 +10,6 @@
 #############################################################################
 
 # when cookie is clicked
-observeEvent(input$closecookiesform,{
-  shinyjs::runjs("document.querySelectorAll('.page-footer').forEach(element => element.remove())")
-})
+# observeOnce(input$closecookiesform,{
+#   shinyjs::runjs("document.querySelectorAll('.page-footer').forEach(element => element.remove())")
+# }, input = input, output = output, session= session)

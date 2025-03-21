@@ -1,0 +1,12 @@
+Using run321.mod in .
+Running with options: -nm_output=xml,cov,ext
+Results in: run321.lst
+Starting 1 NONMEM executions. 1 in parallel.
+S:1 .. 
+All executions started.
+Your job 604949 ("c-604947-f-run321.mod") has been submitted
+Job 604949 exited with exit code 0.
+Your job 604952 ("e-604947-f-run321.mod") has been submitted
+Job 604952 exited with exit code 0.
+F:1 .. 
+execute done

@@ -1,0 +1,22 @@
+Using run501.mod in .
+Running with options: -nm_output=xml,cov,ext
+Results in: run501.lst
+Starting 1 NONMEM executions. 1 in parallel.
+S:1 .. 
+All executions started.
+Your job 604941 ("c-604940-f-run501.mod") has been submitted
+Job 604941 exited with exit code 107.
+No nonmem execution
+NMtran failed. There is no output for model 1. Contents of FMSG:
+ 
+ AN ERROR WAS FOUND IN THE CONTROL STATEMENTS.
+ 
+AN ERROR WAS FOUND ON LINE 37 AT THE APPROXIMATE POSITION NOTED:
+ $TABLE      ID TIME DV MDV EVID IPRED IWRES CWRES ONEHEADER NOPRINT
+		 X   
+ THE CHARACTERS IN ERROR ARE: TIME
+  479  THIS ITEM IS NOT LISTED IN MODULE NMPRD4 AND MAY NOT BE DISPLAYED.
+
+Not restarting this model.
+F:1 .. 
+execute done

@@ -37,6 +37,7 @@ for (ui_each in c(
 # create the main UI for the app
 ui = fluidPage(
   useShinyjs(),
+  initStore(),
   use.cardpro(theme = "a"),
   header.main,
   body.main,

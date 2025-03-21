@@ -27,16 +27,30 @@
     color: white;
 }
 
-
+.modal-body table.table, .modal-body textarea{width:100%!important}.modal-body textarea{border-width:0px!important}
 #varnamesholder{
   font-family: courier;
   margin-top: 5px;
   margin-bottom: 10px;
   color: blue;
 }
-.hider{
+.hider,.hidethis{
   display: none;
 }
+
+pre.modelview {
+            display: flex;
+            color: #333;
+            overflow: auto;
+            position: relative;
+        }
+
+        .line-numbers {
+            text-align: right;
+            margin-right: 10px;
+            color: #888;
+            user-select: none; /* Prevents text selection of line numbers */
+        }
 
 #chat-container {
   z-index: 101;
@@ -155,3 +169,9 @@ th:first-child::after {
 #subj1summary table{
   width: 100%;
 }
+
+.jarviswidget .progress {margin-bottom:0px!important;}
+td:has(.modestdown){background-color:#ff8080}
+td:has(.modestup){background-color:#90EE90}
+td:has(.modestneutral){background-color:#e5e5e5}
+.modal-body table, table#modelrunmain{width:100%;border-collapse:collapse;margin-bottom:20px;}#modelrunmain th{cursor: pointer;} .modal-body table td, #modelrunmain td{border:1px solid #ddd;text-align:center}.modal-body table tr:hover,#modelrunmain tr:hover{background-color:#f1f1f1}#modelrunmain button{padding:8px 12px;background-colors:#2196F3;color:white;border:none;cursor:pointer}#modelrunmain button:hover{background-color:#1976D2}#modelrunmain .progress{width:100%;height:20px;background-color:#f3f3f3;border-radius:5px;position:relative}#modelrunmain .progress-bar{height:100%;background-color:#4caf50;border-radius:5px;text-align:center;color:white;line-height:20px;font-weight:bold}

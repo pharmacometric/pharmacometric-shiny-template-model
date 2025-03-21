@@ -1,0 +1,12 @@
+Using run322.mod in .
+Running with options: -nm_output=xml,cov,ext
+Results in: run322.lst
+Starting 1 NONMEM executions. 1 in parallel.
+S:1 .. 
+All executions started.
+Your job 604948 ("c-604945-f-run322.mod") has been submitted
+Job 604948 exited with exit code 0.
+Your job 604951 ("e-604945-f-run322.mod") has been submitted
+Job 604951 exited with exit code 0.
+F:1 .. 
+execute done

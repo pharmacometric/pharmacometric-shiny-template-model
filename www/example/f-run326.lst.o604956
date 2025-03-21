@@ -1,0 +1,43 @@
+Using run326.lst in .
+Running with options: 
+Results in: run326.lst
+-----------------------------------------------------------------------
+
+run326.lst
+
+Successful minimization                                           [    OK   ]   
+No rounding errors                                                [    OK   ]   
+No zero gradients                                                 [    OK   ]   
+No final zero gradients                                           [    OK   ]   
+Hessian not reset                                                 [    OK   ]   
+No parameter near boundary                                        [    OK   ]   
+Covariance step                                                   [    OK   ]   
+
+Large condition number                                            [ WARNING ]   
+Large correlations between parameter estimates found              [ WARNING ]   
+	RUVa - RUVp             -0.993
+	THETA8: Sex effect on KA - THETA1: Absorption rate constant    -0.917
+
+Estimation time for subproblem, sum over $EST (seconds):   4.7
+Covariance time for subproblem, sum over $EST (seconds):   1.7
+
+Objective function value: 2631.8337
+
+Condition number: 1839
+
+Number of observation records: 760
+Number of individuals: 40
+
+                                     THETA                                         OMEGA               SIGMA    
+THETA1: Absorption rate constant     2.553  (0.05946)  Random variability for CL  0.2841   (0.1241)             
+               THETA2: Clearance     57.37   (0.1188)   Random variability for V  0.3884  (0.08696)             
+          THETA3: Central Volume       459   (0.1265)                                                           
+                            RUVp  -0.08161   (0.6877)                                                           
+                            RUVa     4.147   (0.3302)                                                           
+THETA6: Body weight effect on CL    0.8786   (0.3291)                                                           
+ THETA7: Body weight effect on V  -0.03871     (8.41)                                                           
+        THETA8: Sex effect on KA   -0.4049    (0.437)                                                           
+
+The relative standard errors for omega and sigma are reported on the approximate
+standard deviation scale (SE/variance estimate)/2.
+-----------------------------------------------------------------------

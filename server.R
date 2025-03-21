@@ -28,4 +28,7 @@ server = function(input, output, session) {
       input, output, session
     )
   }
+
+
+  setupStorage(appId = "appwhole2",inputs = c("codingtheme"))
 }

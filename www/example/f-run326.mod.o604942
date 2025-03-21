@@ -1,0 +1,12 @@
+Using run326.mod in .
+Running with options: -nm_output=xml,cov,ext
+Results in: run326.lst
+Starting 1 NONMEM executions. 1 in parallel.
+S:1 .. 
+All executions started.
+Your job 604943 ("c-604942-f-run326.mod") has been submitted
+Job 604943 exited with exit code 0.
+Your job 604950 ("e-604942-f-run326.mod") has been submitted
+Job 604950 exited with exit code 0.
+F:1 .. 
+execute done

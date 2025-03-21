@@ -28,9 +28,44 @@ runApp(launch.browser = 1L)
 
 ```
 # Required libraries and versions
+tools, version 4.4.1
+shinyTree, version 0.3.1
+nonmem2R, version 0.2.5
+shinyAce, version 0.4.4
+shiny, version 1.8.1.1
+shinyjs, version 2.1.0
+shinyStorePlus, version 1.4
+DT, version 0.33
+flextable, version 0.9.6
+nlme, version 3.1.166
+markdown, version 1.13
+tibble, version 3.2.1
+card.pro, version 2.3.0
+dplyr, version 1.1.4
+tidyr, version 1.3.1
+ggplot2, version 3.5.1
+magrittr, version 2.0.3
+mrgsolve, version 1.5.1
+quickcode, version 1.0.4
+patchwork, version 1.3.0
+table1, version 1.4.3
+r2resize, version 1.9.2
+rlang, version 1.1.4
+grid, version 4.4.1
+ggthemes, version 5.1.0
+PerformanceAnalytics, version 2.0.8
+GGally, version 2.2.1
+```
 
+### !IMPORTANT
+
+For model runs, the below code is being run in terminal. You can modify it in "includes/body/gofplot/server.R" with your preferred format for your PsN or NONMEM installation.
 
 ```
+psn73 execute FILENAME.mod
+
+```
+
 ### Features
 
 The following features are available in the current template for you to get started.

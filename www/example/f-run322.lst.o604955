@@ -1,0 +1,39 @@
+Using run322.lst in .
+Running with options: 
+Results in: run322.lst
+-----------------------------------------------------------------------
+
+run322.lst
+
+Successful minimization                                           [    OK   ]   
+No rounding errors                                                [    OK   ]   
+No zero gradients                                                 [    OK   ]   
+No final zero gradients                                           [    OK   ]   
+Hessian not reset                                                 [    OK   ]   
+No parameter near boundary                                        [    OK   ]   
+Covariance step                                                   [    OK   ]   
+
+Condition number                                                  [    OK   ]   
+Large correlations between parameter estimates found              [ WARNING ]   
+	RUVa - RUVp             -0.993
+
+Estimation time for subproblem, sum over $EST (seconds):   2.73
+Covariance time for subproblem, sum over $EST (seconds):   0.78
+
+Objective function value: 2643.5611
+
+Condition number: 548.1
+
+Number of observation records: 760
+Number of individuals: 40
+
+         THETA                      OMEGA               SIGMA    
+  KA     2.308  (0.03693)  iiv CL  0.3509  (0.09064)             
+  CL     42.49  (0.06828)  iiv V2   0.392  (0.08677)             
+  V2     464.2  (0.06371)                                        
+RUVp  -0.08088   (0.6865)                                        
+RUVa     4.135   (0.3292)                                        
+
+The relative standard errors for omega and sigma are reported on the approximate
+standard deviation scale (SE/variance estimate)/2.
+-----------------------------------------------------------------------
