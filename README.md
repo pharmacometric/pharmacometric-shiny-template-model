@@ -15,7 +15,7 @@ The current shiny template for models, plays a vital role in this standardizatio
 
 This dashboard works only with NONMEM based models.
 
-Should we create functionality for ADAPT 5 (or other software) models. We need enough interests to do it. Let us know here : 
+Should we create functionality for ADAPT 5 (or other software) models. We need enough interests to do it. Let us know here : https://github.com/pharmacometric/pharmacometric-shiny-template-model/issues/1
 
 ### Usage 
 ```r
