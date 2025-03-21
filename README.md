@@ -58,7 +58,7 @@ r2resize, version 1.9.2
 rlang, version 1.1.4
 grid, version 4.4.1
 ggthemes, version 5.1.0
-PerformanceAnalytics, version 2.0.8
+NMdata, version 0.1.9
 GGally, version 2.2.1
 ```
 
