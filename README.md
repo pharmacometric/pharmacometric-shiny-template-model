@@ -4,7 +4,7 @@
 <img src="www/preview00.png">
 
 
-__Sample version 1 deployed template__: https://pharmacometric.shinyapps.io/
+__Sample version 1 deployed template__: https://pharmacometric.shinyapps.io/pharmacometric-model-eval/
 
 Standardizing and automatically generating R scripts for creating model evaluation outputs, such as goodness of fit plots and visual predictive check plots, is crucial for ensuring consistency, reproducibility, and clarity in data presentation. Standardized scripts facilitate collaboration among researchers by providing a common framework that reduces variability in analysis and interpretation. 
 The current shiny template for models, plays a vital role in this standardization effort by automating the generation of R code for all scripts used in creating plots and tables. This automation not only streamlines the workflow but also minimizes the risk of errors, allowing researchers to focus on the scientific interpretation of their results rather than the intricacies of coding. 
@@ -49,7 +49,7 @@ tidyr, version 1.3.1
 ggplot2, version 3.5.1
 magrittr, version 2.0.3
 mrgsolve, version 1.5.1
-quickcode, version 1.0.4
+quickcode, version 1.0.5
 patchwork, version 1.3.0
 table1, version 1.4.3
 r2resize, version 1.9.2
