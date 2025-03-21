@@ -18,6 +18,7 @@ set.vals.proc <- function(key, nmfile,lstf) {
 }
 set.est.ofv <- function(key, value, nmfile, readlst) {
   modelnum.est.[[key]] <<- list(data.frame(), value) #list(readlst$TAB, value)
+  pooooooooooooo<<-modelnum.est.
   modelnum.ofv.[[key]] <<- readlst$OFV
   modelnum.tabs.[[nmfile]] <<- readlst$OUTPUT
   modelnum.est(number(1))
@@ -50,9 +51,11 @@ output$modeltabsrun <- renderUI({
     lstcheck <- converge <- covariance <- minimize <- gradient <- tickfailed
     nmfile <- file.path(folderpath, sw$value)
     listfile <- file.path(folderpath, gsub("\\.(mod|ctl)$", ".lst", sw$value))
+    extfile <- file.path(folderpath, gsub("\\.(mod|ctl)$", ".ext", sw$value))
     set.vals.proc(sw$key, nmfile,listfile)
     if (file.exists(listfile)) {
       readlst <- parse_nm_lst(listfile) #parse lst files
+      readlst$TAB = estT =(NMdata::NMreadExt(extfile) %>% dplyr::mutate(rse.pct = round(100*se/est,1), rse.pct = ifelse(rse.pct==Inf,NA,rse.pct)))[,c("i","parameter","par.type","est","rse.pct")]
       set.est.ofv(sw$key, sw$value, nmfile, readlst)
       ofv <- readlst$OFV
       inputdata <- readlst$INPUT
@@ -174,8 +177,6 @@ observe({
 exec_run <- function(id, path) {
   cdpath <- dirname(path)
   nmfile <- basename(path)
-  # print("--------")
-  # print(path)
   lstfile <- gsub("\\.(mod|ctl)$", ".lst", nmfile)
   # rm -rf modelfit_*;
   system(paste0("cd ",cdpath,";rm -rf f-",lstfile,".*; psn74 execute ",nmfile," -nm_output=xml,cov,ext && psn74 sumo ",lstfile," & disown"), intern = FALSE)
@@ -204,10 +205,10 @@ observe({
       dt.1 <- modelnum.est.[[as.numeric(uu)]]
       modnmaes <- c(modnmaes,dt.1[[2]])
       # print(dt.1)
-      dt.1.0 <- dt.1[[1]][, c("NAME", "TYPE")]
+      dt.1.0 <- dt.1[[1]][, c("parameter", "est")]
       dt.1.0[, paste0(basename(dt.1[[2]]))] <- dt.1[[1]]$EST
       # dt.1.0[,paste0("SE",uu)] = dt.1$SE
-      dt.1.1 <- dt.1.0[1, ] %>% mutate(NAME = "OFV", TYPE = "")
+      dt.1.1 <- dt.1.0[1, ] %>% mutate(parameter = "OFV", est = "")
       dt.1.1[, paste0(basename(dt.1[[2]]))] <- modelnum.ofv.[[as.numeric(uu)]]
       # dt.1.1[,paste0("SE",uu)] = ""
       dt.1 <- rbind(dt.1.1, dt.1.0)
