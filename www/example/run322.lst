@@ -81,10 +81,6 @@ $TABLE      ID CL V SEX ETN WT TRT AGE SMOKING DIABETES BMI BSA CLCR
 *********************************************** NONMEM EXECUTION *******************************************************
 ************************************************************************************************************************
 
-License Registered to: Johnson Johnson PRD Grid Account
-Expiration Date:    14 FEB 2026
-Current Date:       20 MAR 2025
-Days until program expires : 329
 1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
  ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
  CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
