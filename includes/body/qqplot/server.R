@@ -42,6 +42,6 @@ output$qqplotscontinuous <- renderPlot({
     updateQQheadreport("Created qq plots...")
     dttab <- modelnum.dt.tabs.[[ploton]]
     updateQQheadreport("Displaying qq plots...")
-    basic.eta.GOF(dttab, global.ggplot.options=plot.theme10, type = input$qqplotseltype, standardize = input$qqplotstdplot)
+    basic.eta.GOF(dttab, global.ggplot.options=plot.theme10, type = input$qqplotseltype, standardize = as.boolean(input$qqplotstdplot))
   }
 })
