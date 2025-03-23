@@ -1,5 +1,6 @@
 # SCIENTIST I: Pharmacometrician for Model Evaluations [Shiny]
 
+![](www/logo.png)
 
 <img src="www/preview00.png">
 
