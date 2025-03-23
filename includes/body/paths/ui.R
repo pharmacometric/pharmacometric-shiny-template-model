@@ -38,8 +38,7 @@ body.panel.paths <- card.pro(
   ),
   textInput(
     "dirfiletype1a",
-    "Files directory path",
-    "www/example", # "www/runtest",
+    "Files directory path","",
     width = "100%"
   ),
   # shwhdbtn("dirfiletype1afiles"),
@@ -47,3 +46,4 @@ body.panel.paths <- card.pro(
   shinyTree("s2tree", checkbox = TRUE),
   footer = textOutput("trackfileupdates")
 )
+
