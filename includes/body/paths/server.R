@@ -18,6 +18,8 @@ observeEvent(input$checkGroupDatasetT, {
 
 GLOBAL$selectedfilesInput <- "dirfiletype1a"
 
+updateTextInput(session,"dirfiletype1a",value=.defaultDir) # set default directory to start
+
 # react to changes in local directory path for original
 observeEvent(input$dirfiletype1a, {
   refreshAllModelHolders()
@@ -36,20 +38,7 @@ observeEvent(input$dirfiletype1a, {
 
 
   GLOBAL$dir.files <- files3
-#
-#   for (kfil in files3) {
-#     kfil = basename(kfil)
-#     fileicon <- ifelse(is.image(kfil),
-#       switchicons("png"),
-#       switchicons(file_ext(kfil))
-#     )
-#     fillisttxt <- c(fillisttxt, paste0(
-#       '<div class="filelistc1"><i class="fas fa-', fileicon %or% "file", '" role="presentation" aria-label="chart-area icon"></i> ',
-#       kfil, "</div>"
-#     ))
-#   }
-#   shinyjs::runjs(paste0("$('#dirfiletype1afiles').html(\'", paste(fillisttxt, collapse = ""), "\')"))
-}, ignoreInit = TRUE)
+  }, ignoreInit = TRUE)
 
 
 # react to changes in uploaded directory path for original
