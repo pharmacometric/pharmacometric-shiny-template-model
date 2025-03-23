@@ -1,4 +1,4 @@
-# Standardized Pharmacometric Dashboard for Model Evaluations [Shiny]
+# SCIENTIST I: Pharmacometrician for Model Evaluations [Shiny]
 
 
 <img src="www/preview00.png">
