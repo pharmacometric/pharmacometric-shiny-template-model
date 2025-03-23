@@ -46,7 +46,7 @@ output$modeltabsrun <- renderUI({
   for (sw in indexed(modfiles)) {
     sw$key <- sw$key + uniqueid
     descr <- problem <- "None"
-    inputdata <- nsig <- ofv <- nmethod <- "NA"
+    inputdata <- nsig <- ofv <- nmethod <- condnum <- "NA"
     lstcheck <- converge <- covariance <- minimize <- gradient <- tickfailed
     nmfile <- file.path(folderpath, sw$value)
     listfile <- file.path(folderpath, gsub("\\.(mod|ctl)$", ".lst", sw$value))
@@ -57,6 +57,7 @@ output$modeltabsrun <- renderUI({
       readlst$TAB = (NMdata::NMreadExt(extfile) %>% dplyr::mutate(rse.pct = abs(round(100*se/est,1)), rse.pct = ifelse(rse.pct==Inf|FIX==1,NA,rse.pct)))[,c("i","parameter","par.type","est","rse.pct")]
       set.est.ofv(sw$key, sw$value, nmfile, readlst)
       ofv <- readlst$OFV
+      condnum <-readlst$CONDNUM
       inputdata <- readlst$INPUT
       nmethod <- getNMmethod(readlst$METH)
       lstcheck <- ticksuccess
@@ -80,6 +81,7 @@ output$modeltabsrun <- renderUI({
         tags$td(ofv),
         tags$td(nsig),
         tags$td(nmethod),
+        tags$td(condnum),
         tags$td(descr, class = "text-left"),
         tags$td(inputdata, class = "text-left"),
         tags$td(
@@ -104,6 +106,7 @@ output$modeltabsrun <- renderUI({
     tags$th("OFV", icon("sort")),
     tags$th("NSIG", icon("sort")),
     tags$th("Method", class = "text-left"),
+    tags$th("Condition #", class = "text-left"),
     tags$th("Description", class = "text-left"),
     tags$th("Dataset", class = "text-left"),
     tags$th("Options")
@@ -149,7 +152,7 @@ observe({
           showModal(modalDialog(
             title = paste0("Parameter estimates for ","', basename(listitem[2]), '"),
             size="l", easyClose = FALSE,
-            renderTable(modelnum.est.[[', listitem[1], ']][[1]])
+            renderTable(modelnum.est.[[', listitem[1], ']][[1]]%>% `colnames<-`(c("No.","Parameter","Type","Estimate","RSE(%)")))
           ))
         })
         observeEvent(input[[paste0("rerunmod",', listitem[1], ')]],{
@@ -348,11 +351,10 @@ output$modelrunning <- renderUI({
       if (file.exists(trackfile) &
         tools::file_ext(trackfile) != "") {
         if ((as.numeric(file.info(trackfile)["ctime"]) - as.numeric(sc[2])) > 0) { # check if the file was created after the run was started
-          print("-------*****---------------")
+
           readtckf <- readLines(trackfile)
           jobnumb <- grep("^Job [0-9].+$", readtckf, value = TRUE)
           jobnumb2 <- grep(".+job [0-9].+$", readtckf, value = TRUE)
-          print(jobnumb2)
           if (length(jobnumb)) {
             lstcomment <- jobnumb[1]
           }
