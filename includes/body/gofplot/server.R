@@ -69,11 +69,7 @@ output$plotgofsui <- renderPlot({
   }
 })
 
-observe({
-  output
-  print("Done...")
-  #updateGOFheadreport("Plot displayed!")
-})
+
 
 observe({
   if(is.null(GLOBAL$dir.files)) exit()
