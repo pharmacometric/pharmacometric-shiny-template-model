@@ -2,6 +2,8 @@
 
 ![](www/logo.png)
 
+![](www/v2.png)
+
 <img src="www/previewx.png">
 
 
