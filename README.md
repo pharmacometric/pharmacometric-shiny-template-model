@@ -2,7 +2,7 @@
 
 ![](www/logo.png)
 
-<img src="www/preview00.png">
+<img src="www/previewx.png">
 
 
 __Sample version 1 deployed template__: https://pharmacometric.shinyapps.io/pharmacometric-model-eval/
