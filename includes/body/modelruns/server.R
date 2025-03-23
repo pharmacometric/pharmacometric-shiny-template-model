@@ -18,8 +18,6 @@ set.vals.proc <- function(key, nmfile,lstf) {
 }
 set.est.ofv <- function(key, value, nmfile, readlst) {
   modelnum.est.[[key]] <<- list(readlst$TAB, value)
-  print(readlst$TAB)
-  pooooooooooooo<<-modelnum.est.
   modelnum.ofv.[[key]] <<- readlst$OFV
   modelnum.tabs.[[nmfile]] <<- readlst$OUTPUT
   modelnum.est(number(1))
@@ -56,7 +54,7 @@ output$modeltabsrun <- renderUI({
     set.vals.proc(sw$key, nmfile,listfile)
     if (file.exists(listfile)) {
       readlst <- parse_nm_lst(listfile) #parse lst files
-      readlst$TAB = (NMdata::NMreadExt(extfile) %>% dplyr::mutate(rse.pct = round(100*se/est,1), rse.pct = ifelse(rse.pct==Inf,NA,rse.pct)))[,c("parameter","par.type","est","rse.pct")]
+      readlst$TAB = (NMdata::NMreadExt(extfile) %>% dplyr::mutate(rse.pct = round(100*se/est,1), rse.pct = ifelse(rse.pct==Inf|FIX==1,NA,rse.pct)))[,c("i","parameter","par.type","est","rse.pct")]
       set.est.ofv(sw$key, sw$value, nmfile, readlst)
       ofv <- readlst$OFV
       inputdata <- readlst$INPUT
@@ -205,13 +203,11 @@ observe({
     for (uu in modelids) {
       dt.1 <- modelnum.est.[[as.numeric(uu)]]
       modnmaes <- c(modnmaes,dt.1[[2]])
-      # print(dt.1)
-      dt.1.0 <- dt.1[[1]][, c("parameter", "est")]
-      dt.1.0[, paste0(basename(dt.1[[2]]))] <- dt.1[[1]]$EST
-      # dt.1.0[,paste0("SE",uu)] = dt.1$SE
-      dt.1.1 <- dt.1.0[1, ] %>% mutate(parameter = "OFV", est = "")
+
+      dt.1.0 <- dt.1[[1]][, c("parameter", "par.type")]
+      dt.1.0[, paste0(basename(dt.1[[2]]))] <- dt.1[[1]]$est
+      dt.1.1 <- dt.1.0[1, ] %>% mutate(parameter = "OFV", par.type = "")
       dt.1.1[, paste0(basename(dt.1[[2]]))] <- modelnum.ofv.[[as.numeric(uu)]]
-      # dt.1.1[,paste0("SE",uu)] = ""
       dt.1 <- rbind(dt.1.1, dt.1.0)
       if (nrow(full.data.) == 1) full.data. <- dt.1 else full.data. <- full_join(full.data., dt.1)
     }
@@ -239,8 +235,8 @@ modelcomparetable <- reactive({
                   paste0("<span class='modestdown'>",x,"&nbsp;&nbsp;▼</span>")
                   )
            )
-  })%>% mutate(NAME=paste0("<b>",NAME,"</b>")) %>%
-    rename(Parameter = NAME, Description = TYPE)
+  })%>% mutate(parameter=paste0("<b>",parameter,"</b>")) %>%
+    rename(Parameter = parameter, Description = par.type)
 })
 output$modelcomparetableview <- renderTable(modelcomparetable(), striped = FALSE, hover = TRUE, bordered = TRUE, align = "l", sanitize.text.function = identity)
 
