@@ -1,6 +1,6 @@
 header.main = titlePanel(tags$div(
   tags$img(src="modr_urbanjungle.png", height="25")," ",
-  tags$img(src="modelsuite.png", height="30", style="display: inline-block; margin-top: 10px;"),
+  tags$img(src="modelsuite.png", height="20", style="display: inline-block; margin-top: 10px;"),
   tags$div(class = "hidden-mobile hidden-tablet pull-right",
            #actionButton("moduleproj", "Module", icon = icon("cog")),
              actionButton("aboutproject", "", icon = icon("question")))
