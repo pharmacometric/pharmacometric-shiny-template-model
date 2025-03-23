@@ -14,7 +14,7 @@ observeEvent(input$checkGroupDatasetT, {
   if(input$checkGroupDatasetT == "2")
     shinyjs::runjs("$('#dirfiletype1a').prop('disabled',true)")
   else shinyjs::runjs("$('#dirfiletype1a').prop('disabled',false)")
-})
+}, ignoreInit = TRUE)
 
 GLOBAL$selectedfilesInput <- "dirfiletype1a"
 
@@ -49,7 +49,7 @@ observeEvent(input$dirfiletype1a, {
 #     ))
 #   }
 #   shinyjs::runjs(paste0("$('#dirfiletype1afiles').html(\'", paste(fillisttxt, collapse = ""), "\')"))
-})
+}, ignoreInit = TRUE)
 
 
 # react to changes in uploaded directory path for original
