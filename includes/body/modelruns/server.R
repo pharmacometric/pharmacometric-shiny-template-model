@@ -17,7 +17,8 @@ set.vals.proc <- function(key, nmfile,lstf) {
   modelnum.proc(number(1))
 }
 set.est.ofv <- function(key, value, nmfile, readlst) {
-  modelnum.est.[[key]] <<- list(data.frame(), value) #list(readlst$TAB, value)
+  modelnum.est.[[key]] <<- list(readlst$TAB, value)
+  print(readlst$TAB)
   pooooooooooooo<<-modelnum.est.
   modelnum.ofv.[[key]] <<- readlst$OFV
   modelnum.tabs.[[nmfile]] <<- readlst$OUTPUT
@@ -55,7 +56,7 @@ output$modeltabsrun <- renderUI({
     set.vals.proc(sw$key, nmfile,listfile)
     if (file.exists(listfile)) {
       readlst <- parse_nm_lst(listfile) #parse lst files
-      readlst$TAB = estT =(NMdata::NMreadExt(extfile) %>% dplyr::mutate(rse.pct = round(100*se/est,1), rse.pct = ifelse(rse.pct==Inf,NA,rse.pct)))[,c("i","parameter","par.type","est","rse.pct")]
+      readlst$TAB = (NMdata::NMreadExt(extfile) %>% dplyr::mutate(rse.pct = round(100*se/est,1), rse.pct = ifelse(rse.pct==Inf,NA,rse.pct)))[,c("parameter","par.type","est","rse.pct")]
       set.est.ofv(sw$key, sw$value, nmfile, readlst)
       ofv <- readlst$OFV
       inputdata <- readlst$INPUT
