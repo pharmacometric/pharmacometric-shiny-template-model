@@ -1,4 +1,4 @@
-# SCIENTIST I: Pharmacometric Modeler [shiny]
+# SCIENTIST I: Pharmacometric Modeler v1 [shiny]
 
 ![](www/logo.png)
 
