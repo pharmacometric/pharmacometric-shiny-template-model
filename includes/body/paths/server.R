@@ -38,7 +38,7 @@ observeEvent(input$dirfiletype1a, {
 
 
   GLOBAL$dir.files <- files3
-  }, ignoreInit = TRUE)
+  }, ignoreInit = TRUE,priority = 5)
 
 
 # react to changes in uploaded directory path for original
