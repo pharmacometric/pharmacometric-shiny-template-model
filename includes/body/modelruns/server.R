@@ -54,7 +54,7 @@ output$modeltabsrun <- renderUI({
     set.vals.proc(sw$key, nmfile,listfile)
     if (file.exists(listfile)) {
       readlst <- parse_nm_lst(listfile) #parse lst files
-      readlst$TAB = (NMdata::NMreadExt(extfile) %>% dplyr::mutate(rse.pct = round(100*se/est,1), rse.pct = ifelse(rse.pct==Inf|FIX==1,NA,rse.pct)))[,c("i","parameter","par.type","est","rse.pct")]
+      readlst$TAB = (NMdata::NMreadExt(extfile) %>% dplyr::mutate(rse.pct = abs(round(100*se/est,1)), rse.pct = ifelse(rse.pct==Inf|FIX==1,NA,rse.pct)))[,c("i","parameter","par.type","est","rse.pct")]
       set.est.ofv(sw$key, sw$value, nmfile, readlst)
       ofv <- readlst$OFV
       inputdata <- readlst$INPUT
