@@ -29,7 +29,7 @@ body.panel.right.qqplot = card.pro(
     tags$h2("QQ plot settings"),
     tags$i("If chanes are made in the settings, the user must click the generate button to re-plot", style="color:red"),
     selectInput("qqplotseltype",  "Type of plot", choices = c("both", "qqnorm", "hist"), width = "90%"),
-    selectInput("qqplotstdplot",  "Type of plot", choices = c("Yes"=1,"No"=2), width = "90%")
+    selectInput("qqplotstdplot",  "Standized?", choices = c("Yes"=1,"No"=2), width = "90%")
   ),
   footer = list(
     downloadButton("qqdownloadimg", "Download plot file (ggplot)", icon = icon("image")),
