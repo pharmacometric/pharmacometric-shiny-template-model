@@ -1,4 +1,4 @@
-# SCIENTIST I: Pharmacometrician for Model Evaluations [Shiny]
+# SCIENTIST I: Pharmacometric Modeler [shiny]
 
 ![](www/logo.png)
 
