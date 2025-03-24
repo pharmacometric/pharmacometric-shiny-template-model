@@ -23,9 +23,9 @@ Should we create functionality for ADAPT 5 (or other software) models. We need e
 ### Usage 
 ```r
 
-# Download and unzip the content of this repository
+# Clone or download and unzip the content of this repository
 # Set working directory to the unzipped folder
-setwd("pharmacometric-shiny-template-model")
+setwd("scientist1-pharmacometric-modeler-shiny")
 
 # Load shiny and run app
 library(shiny)
@@ -67,7 +67,7 @@ GGally, version 2.2.1
 
 ### !IMPORTANT
 
-For model runs, the below code is being run in terminal. You can modify it in "includes/body/gofplot/server.R" line 182 with your preferred format for your PsN or NONMEM installation.
+For model runs, the below code is being run in terminal. You can modify it in " __utils.R__ " line __52__ with your preferred format for your PsN or NONMEM installation.
 
 ```
 psn74 execute FILENAME.mod
