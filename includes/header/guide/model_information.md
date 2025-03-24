@@ -1,4 +1,4 @@
-## Documentation for the modeling module
+## Documentation for Scientist I
 
 ### Introduction
 
@@ -8,7 +8,7 @@ The purpose of this template is to help create a standardized workflow for scien
 
 The following features are available in the current template for you to get started.
 
- - __Pre-built modules__ Already configured set-up for modules for exploratory data analysis. User may tweak further to their specific routines
+ - __Pre-built modules__ Already configured set-up for modules for model creation, excution and post-processing. User may tweak further to their specific routines
  - __Example data & uploads__ Availability of data to test out the app, but also a feature that allows upload of user dataset for analysis
  - __Plot/table output and code download__ Download all output plots and tables either as final outputs (png/docx) or objects (ggplot/flextable/table1) or code download to direct use in submissions
  - __User customizable interface__. This means the user can move around the panels to desired locations on the screen. They may also change the title and color of the panels to suite their needs. 
