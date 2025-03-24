@@ -8,7 +8,10 @@
 ##
 #############################################################################
 #############################################################################
-quickcode::libraryAll(ggplot2, grid, ggthemes)
+#quickcode::libraryAll(ggplot2, grid, ggthemes)
+library(ggplot2)
+library(grid)
+library(ggthemes)
 ggplot2::theme_set(theme_bw())
 source.part <- function(path, which = c("ui", "server"), input = NULL, output = NULL, session = NULL) {
   which <- match.arg(which)
@@ -41,6 +44,22 @@ listFiles <- function(maxDepth, path, currentDepth = 1) {
     subtree
   }
 }
+
+exec_run <- function(id, path) {
+  cdpath <- dirname(path)
+  nmfile <- basename(path)
+  lstfile <- gsub("\\.(mod|ctl)$", ".lst", nmfile)
+  system(paste0("cd ",cdpath,";rm -rf f-",lstfile,".*; psn74 execute ",nmfile," -nm_output=xml,cov,ext && psn74 sumo ",lstfile," & disown"), intern = FALSE)
+  model.run.list(id, path)
+}
+
+exec_run_del <- function(id, path) {
+  cdpath <- dirname(path)
+  nmfile <- basename(path)
+  lstfile <- gsub("\\.(mod|ctl)$", ".lst", nmfile)
+  system(paste0("rm -rf modelfit_*;cd ",cdpath,";rm -rf f-",lstfile,".*;"), intern = FALSE)
+}
+
 refreshAllModelHolders <- function() {
   print("Destroying all stores ...")
   ls. <- list()
