@@ -56,8 +56,8 @@ exec_run <- function(id, path) {
 exec_run_del <- function(id, path) {
   cdpath <- dirname(path)
   nmfile <- basename(path)
-  lstfile <- gsub("\\.(mod|ctl)$", ".lst", nmfile)
-  system(paste0("rm -rf modelfit_*;cd ",cdpath,";rm -rf f-",lstfile,".*;"), intern = FALSE)
+  nmofile <- gsub("\\.(mod|ctl)$", "", nmfile)
+  system(paste0("cd ",cdpath,";rm -rf modelfit_*;rm -rf *",nmofile,".* &"), intern = FALSE)
 }
 
 refreshAllModelHolders <- function() {
