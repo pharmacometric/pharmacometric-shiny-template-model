@@ -88,7 +88,8 @@ output$modeltabsrun <- renderUI({
           actionButton(paste0("modecode", sw$key), "", icon = icon("code"), class = "rerunmode btn-primary py-1 px-2", style = "font-size:8px"),
           if (file.exists(listfile)) {
             tags$span(actionButton(paste0("modeparms", sw$key), "", icon = icon("list"), class = "rerunmode btn-primary py-1 px-2", style = "font-size:8px"),
-            actionButton(paste0("lstf", sw$key), "", icon = icon("info"), class = "rerunmode btn-warning py-1 px-2", style = "font-size:8px"))
+            actionButton(paste0("lstf", sw$key), "", icon = icon("info"), class = "rerunmode btn-warning py-1 px-2", style = "font-size:8px"),
+            actionButton(paste0("delmod", sw$key), "", icon = icon("delete"), class = "rerunmode btn-danger py-1 px-2", style = "font-size:8px"))
           },
           actionButton(paste0("rerunmod", sw$key), "", icon = icon("play"), class = "rerunmode btn-info py-1 px-2", style = "font-size:8px"),
           actionButton(paste0("chatnote", sw$key), "", icon = icon("comment"), class = "rerunmode btn-danger py-1 px-2", style = "font-size:8px")
@@ -155,6 +156,7 @@ observe({
             renderTable(modelnum.est.[[', listitem[1], ']][[1]]%>% `colnames<-`(c("No.","Parameter","Type","Estimate","RSE(%)")))
           ))
         })
+
         observeEvent(input[[paste0("rerunmod",', listitem[1], ')]],{
           showModal(modalDialog(
     title = "Confirm Start Run",
@@ -169,6 +171,22 @@ observe({
   removeModal()  # Close the modal
   exec_run("', listitem[1], '", "', listitem[2], '")
 },once=TRUE)
+          })
+
+        observeEvent(input[[paste0("delmod",', listitem[1], ')]],{
+          showModal(modalDialog(
+    title = "Confirm Delete Model",
+    "Do you really want to delete model ', basename(listitem[2]), '?",
+    easyClose = FALSE,
+    footer = tagList(
+      modalButton("Cancel"),
+      actionButton("confirm2', listitem[1], '", "Confirm")
+    )
+  ))
+          observeEvent(input[["confirm2', listitem[1], '"]], {
+  removeModal()  # Close the modal
+  exec_run_del("', listitem[1], '", "', listitem[2], '")
+},once=TRUE)
           })'
       )))
     } else {
@@ -176,14 +194,7 @@ observe({
     }
   }
 })
-exec_run <- function(id, path) {
-  cdpath <- dirname(path)
-  nmfile <- basename(path)
-  lstfile <- gsub("\\.(mod|ctl)$", ".lst", nmfile)
-  # rm -rf modelfit_*;
-  system(paste0("cd ",cdpath,";rm -rf f-",lstfile,".*; psn74 execute ",nmfile," -nm_output=xml,cov,ext && psn74 sumo ",lstfile," & disown"), intern = FALSE)
-  model.run.list(id, path)
-}
+
 
 jsselectedmodels = FALSE
 observeEvent(input$comparemodelsest, {
